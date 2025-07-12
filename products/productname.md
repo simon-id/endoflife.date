@@ -1,69 +1,18 @@
+https://github.com/endoflife-date/endoflife.date/wiki/Guiding-Principles
+
 ---
-# Name of the product (mandatory).
-title: Timeturner
-
-# Category of the product (mandatory).
-# Possible values are os,database,app,lang,framework,device,service,server-app.
-# If you add a new value, please mention it in the PR Description. Some rough guidelines:
-# - os is for operating systems (and similar projects),
-# - database is for all kinds of database,
-# - app is for end-user applications,
-# - lang is for programming languages,
-# - framework is for application libraries, SDKs, frameworks...,
-# - device is for physical devices,
-# - service is for managed service offerings (SaaS/PaaS...),
-# - server-app is for applications usually installed on the server-side.
-category: os
-
-# Tags of the product (optional).
-#
-# Remember that no tag is better than a useless tag. So do not introduce new tags when adding a product
-# and use one of the tags listed on https://endoflife.date/tags/.
-#
-# Should you want to add a new tag, please open an issue first to discuss it with the team.
-# Moreover, any new tag must be applied in a single PR to all products that should have it.
-#
-# Rules about tags are the following:
-# - must match [a-z0-9\-]+,
-# - must be declared with a space-separated string,
-# - must be alphabetically ordered,
-# - must use singular (for example web-server, not web-servers),
-# - should not be an existing category (note that categories are automatically used as tags),
-# - should be used at least three times, except for tags representing a vendor or a runtime dependency,
-# - must be added for one of the following reasons :
-#   - set a product family such as linux-distribution, web-browser, mobile-phone or web-server,
-#   - set a product vendor such as adobe, amazon or apache,
-#   - set a runtime dependency such as java-runtime, javascript-runtime or php-runtime.
-tags: amazon linux-distribution
-
-# Simple Icons (https://simpleicons.org/) icon slug (optional).
-# Remove this property if the icon is not available on Simple Icons.
-# As an example, https://simpleicons.org/?q=codemagic links to https://simpleicons.org/icons/codemagic.svg ,
-# so the slug is `codemagic` (the SVG filename without extension).
-# A list of all slugs is also available on https://github.com/simple-icons/simple-icons/blob/develop/slugs.md .
-iconSlug: codemagic
-
-# Main URL for the page (mandatory).
-permalink: /timeturner
-
-# Alternate URLs that will redirect to the permalink (optional).
-# This is nice to let people use easier-to-remember URLs. For example, we redirect /golang to /go .
-alternate_urls:
--   /hourglass
-
-# Command that can be used to check the current product version (optional).
-versionCommand: swish and flick
+title: dd-trace-js
+category: framework
+tags: datadog javascript-runtime
+iconSlug: datadog
+permalink: /dd-trace-js
+versionCommand: npm list dd-trace-js
 
 # The more information link (optional).
 # If provided, this link is displayed after the product's description.
 # This link should contain information about the release policy and schedule. This is NOT the product URL!
 # Do not use a localized URL (such as one containing en-us) if possible.
 releasePolicyLink: https://nodejs.org/about/releases/
-
-# An image that shows a graphical representation of the releases (optional).
-# If provided, this image will be displayed at the top of the product's page.
-# This is not the product logo. Remove if you don't find a relevant image.
-releaseImage: https://raw.githubusercontent.com/nodejs/Release/main/schedule.svg?sanitize=true
 
 # Template to be used to generate a link for the releases (optional).
 # Available variables inside the template are:
@@ -165,12 +114,8 @@ customColumns:
     # It will be used to transform the table label to a link.
     link: https://en.wikipedia.org/wiki/IPhone#Models
 
-# Auto-update release configuration (optional).
 # This is used for automatically updating `releaseDate`, `latest`, and `latestReleaseDate` for every release.
-# Multiple configurations are allowed.
 # Please visit https://github.com/endoflife-date/endoflife.date/wiki/Automation for more details.
-# The presence of such configuration modifies the product page so that users are informed that existing
-# releases are automatically updated with latest versions.
 auto:
   # Mark auto-update as being cumulative (optional, default = false).
   # This means that the data won't be deleted before fetching new data.
@@ -183,7 +128,7 @@ auto:
     # Any valid git clone URL will work, but support for partialClone is necessary
     # (GitHub and GitLab support it).
     # For example, for Apache Maven:
-    - git: https://github.com/apache/maven.git
+    - git: https://github.com/DataDog/dd-trace-js.git
 
       # Python-compatible regex that defines how the tags above should translate to versions (optional).
       # The default regex can handle versions having at least 2 digits (ex. 1.2) and at most 4 digits (ex. 1.2.3.4),
@@ -208,53 +153,16 @@ auto:
 
     # Configuration for auto-update based on the npm registry.
     # The value must be the package identifier on https://www.npmjs.com .
-    # For example, for Vue:
-    - npm: vue
+    - npm: dd-trace
 
-    # Configuration for auto-update based on DistroWatch.
-    # The value must be the distribution ID. It can be found in the distribution URL.
-    # For example, for https://distrowatch.com/index.php?distribution=debian , use "debian".
-    - distrowatch: debian
-
-      # The Python-compatible regex used to parse headlines (mandatory).
-      # Use named capturing groups to capture the version or version's parts.
-      # You can also pass a list of regexes here and matches for any of those will be considered.
-      regex: 'Distribution Release: (?P<version>\d+.\d+)'
-
-      # A liquid template using the captured variables from the regex above that renders the final version
-      # (optional, default can be found on https://github.com/endoflife-date/release-data/blob/main/src/distrowatch.py#L13 ).
-      # You can use liquid templating here.
-      template: '{{version}}'
-
-    # Configuration for auto-update based on Maven Central ( https://search.maven.org ).
-    # The value must be the maven coordinates of the artifact, in the form groupId/artifactId.
-    # For example, for Apache Tomcat ( https://search.maven.org/artifact/org.apache.tomcat/tomcat ):
-    - maven: org.apache.tomcat/tomcat
-
-    # Configuration for auto-update based on a custom script in the release-data repository.
-    # The value must be the script name in the release-data repository, without it's '.py' extension.
-    - custom: script-name
 
 # A list of identifiers that can be used to detect this product as being used,
 # especially by SBOM tooling
 # Please see https://endoflife.date/help/identifiers-needed/ for more information
 identifiers:
-  # Each identifier is a way of linking this product to various methods of installing it
-
-  # This is a shorthand to use repology as the source data
-  # https://repology.org/project/:package-name-/versions
-  # should return a valid list of packages linked to this product.
-  - repology: package-name
-
-  # See the PURL spec https://github.com/package-url/purl-spec
-  # for details, and avoid packages that are already mentioned on
-  # the repology page
-  # Common examples would be to use
-  # - pkg:os to document operating systems (https://github.com/package-url/purl-spec/pull/161)
-  # - pkg:github to link to GitHub pages
-  # - pkg:golang/pypi/gem/maven/npm etc for common package managers
+  - purl: pkg:github/DataDog/dd-trace-js
+  - purl: pkg:npm/dd-trace
   # - pkg:docker for linking to docker images on Docker Hub
-  - purl: pkg:package-manager/package-name
 
 # A list of releases, supported or not (mandatory).
 # Releases must be sorted from the newest (on top of the list) to the lowest.
